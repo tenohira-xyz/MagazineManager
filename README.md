@@ -31,3 +31,4 @@
 - [要件定義](doc/requirement-definition.md)
 - [画面一覧](doc/page-list.md)
 - [入出力項目定義](doc/io-definition.md)
+- [テーブル設計](doc/db-design.md)
