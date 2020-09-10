@@ -53,7 +53,7 @@
     - [x] 画面遷移先
     - [x] 処理内容の概要
     - [x] エラー発生時の動作
-- [ ] テーブル設計
+- [x] テーブル設計
 - [ ] DTOの中身の定義
     - [ ] View→DB、DB→Viewに必要な項目の洗い出し
     - [ ] View-Controller、Controller-Service-DAO間の最低2つを画面ごとに定義
@@ -83,4 +83,4 @@
     - [雑誌詳細画面](doc/action-detail.md)
     - [目次画面](doc/action-contents.md)
     - [索引画面](doc/action-index.md)
-
+- [テーブル設計](doc/db-design.md)
