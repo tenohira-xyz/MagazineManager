@@ -44,6 +44,7 @@
     - [x] 入出力項目
     - [x] 操作部品（ボタン／リンク）
 - [ ] UI設計
+- [x] 画面遷移図
 - [x] DBに格納する内容の洗い出し
 
 #### 詳細設計
@@ -72,5 +73,14 @@
 - [詳細設計](doc/detail-design.md)
 -->
 - [システムの概要](doc/overview.md)
+- [画面遷移図](doc/transition-image.md)
 - [画面表示項目](doc/io-definition.md)
 - [DBに格納する内容の洗い出し](doc/db-item.md)
+- [操作部品の動作を定義](doc/action.md)
+    - [ログイン画面](doc/action-login.md)
+    - [雑誌一覧画面](doc/action-list.md)
+    - [雑誌新規登録画面]()
+    - [雑誌詳細画面]()
+    - [目次画面]()
+    - [索引画面]()
+
