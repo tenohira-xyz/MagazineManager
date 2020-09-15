@@ -85,6 +85,8 @@ templates/error
 |論理名|物理名|
 |:--|:--| 
 |共通エラー画面|error.html|
+|アクセス不可エラー画面|deny.html|
+|セッション切れエラー画面|session.html|
 |雑誌未指定エラー画面|unspecified.html|
-|雑誌非存在エラー画面|notExist.html|
+|雑誌非存在エラー画面|not-exist.html|
 |雑誌登録済エラー画面|registered.html|

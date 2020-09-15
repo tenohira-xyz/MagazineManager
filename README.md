@@ -55,12 +55,12 @@
     - [x] エラー発生時の動作
 - [x] テーブル設計
 - [x] プロジェクトのファイル構成
+- [x] 処理内容の詳細化
+    - [x] 正常系
+    - [x] 異常系
 - [ ] DTOの中身の定義
     - [ ] View→DB、DB→Viewに必要な項目の洗い出し
     - [ ] View-Controller、Controller-Service-DAO間の最低2つを画面ごとに定義
-- [ ] 処理内容の詳細化
-    - [ ] 正常系
-    - [ ] 異常系
 - [ ] CRUD定義
 - [ ] SQLクエリの設計
 
@@ -86,3 +86,4 @@
     - [索引画面](doc/action-index.md)
 - [テーブル設計](doc/db-design.md)
 - [プロジェクトのファイル構成](doc/project-structure.md)
+- [処理内容の詳細化](doc/detail-design.md)
