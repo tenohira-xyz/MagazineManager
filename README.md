@@ -58,10 +58,10 @@
 - [x] 処理内容の詳細化
     - [x] 正常系
     - [x] 異常系
+- [x] CRUD定義
 - [ ] DTOの中身の定義
     - [ ] View→DB、DB→Viewに必要な項目の洗い出し
     - [ ] View-Controller、Controller-Service-DAO間の最低2つを画面ごとに定義
-- [ ] CRUD定義
 - [ ] SQLクエリの設計
 
 
@@ -87,3 +87,4 @@
 - [テーブル設計](doc/db-design.md)
 - [プロジェクトのファイル構成](doc/project-structure.md)
 - [処理内容の詳細化](doc/detail-design.md)
+- [CRUDの定義](doc/crud.md)
