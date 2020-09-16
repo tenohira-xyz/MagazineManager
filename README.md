@@ -62,7 +62,7 @@
 - [x] DTOの中身の定義
     - [x] View⇔Controller間の受け渡し
     - [x] データベースのレコードを格納するためのDTO
-- [ ] SQLクエリの設計
+- [x] SQLクエリの設計
 
 
 ## 設計書等
@@ -89,3 +89,4 @@
 - [処理内容の詳細化](doc/detail-design.md)
 - [CRUDの定義](doc/crud.md)
 - [DTOの中身の定義](doc/dto-item.md)
+- [SQLクエリの設計](doc/sql-query.md)
