@@ -59,9 +59,9 @@
     - [x] 正常系
     - [x] 異常系
 - [x] CRUD定義
-- [ ] DTOの中身の定義
-    - [ ] View→DB、DB→Viewに必要な項目の洗い出し
-    - [ ] View-Controller、Controller-Service-DAO間の最低2つを画面ごとに定義
+- [x] DTOの中身の定義
+    - [x] View⇔Controller間の受け渡し
+    - [x] データベースのレコードを格納するためのDTO
 - [ ] SQLクエリの設計
 
 
@@ -88,3 +88,4 @@
 - [プロジェクトのファイル構成](doc/project-structure.md)
 - [処理内容の詳細化](doc/detail-design.md)
 - [CRUDの定義](doc/crud.md)
+- [DTOの中身の定義](doc/dto-item.md)
