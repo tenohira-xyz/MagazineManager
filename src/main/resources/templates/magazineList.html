@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>雑誌一覧</title>
+</head>
+<body>
+	<a th:href="@{/}">MagazineManager</a>
+	<a th:href="@{/login}">ログイン</a>
+	<a th:href="@{/logout}">ログアウト</a>
+	
+	<h1>雑誌一覧</h1>
+	
+	<a th:href="@{/register}">雑誌登録</a><br>
+	
+	<table>
+		<tr>
+			<th>雑誌名</th>
+			<th>号数</th>
+			<th>詳細</th>
+			<th>目次</th>
+			<th>索引</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="magazine : ${magazineList}">
+			<td th:text="${magazine.name}"></td>
+			<td th:text="${magazine.number}"></td>
+			<td>
+				<a th:href="@{/}">詳細</a>
+			</td>
+			<td>
+				<a th:href="@{/}">目次</a>
+			</td>
+			<td>
+				<a th:href="@{/}">索引</a>
+			</td>
+			<td>
+				<a th:href="@{/}">削除</a>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

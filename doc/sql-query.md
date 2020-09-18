@@ -5,12 +5,13 @@
 #### 取得項目
 - ユーザ名
 - パスワード
+- 使用可否（一律`true`を設定する）
 #### 取得元テーブル
 - ユーザマスタ
 #### 条件
 - ユーザ名 = 入力フォームのユーザ名
 #### SQL
-SELECT name, password FROM m_user WHERE name = ?
+SELECT name, password, true FROM m_user WHERE name = ?
 
 ### ユーザのロールを取得するSQL
 #### 取得項目
