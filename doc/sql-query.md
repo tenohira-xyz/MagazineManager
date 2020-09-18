@@ -3,32 +3,32 @@
 ## セキュリティ設定クラス
 ### ユーザ名とパスワードを取得するSQL
 #### 取得項目
-- ユーザID: user_id
-- パスワード: password
+- ユーザ名
+- パスワード
 #### 取得元テーブル
-- ユーザマスタ: m_user
+- ユーザマスタ
 #### 条件
-- ユーザID = 入力フォームのユーザID
+- ユーザ名 = 入力フォームのユーザ名
 #### SQL
-SELECT user_id, password FROM m_user WHERE user_id = ?
+SELECT name, password FROM m_user WHERE name = ?
 
 ### ユーザのロールを取得するSQL
 #### 取得項目
-- ユーザID: user_id
-- 権限: authority
+- ユーザ名
+- 権限
 #### 取得元テーブル
-- ユーザマスタ: m_user
+- ユーザマスタ
 #### 条件
 - ユーザID = 入力フォームのユーザID
 #### SQL
-SELECT user_id, authority FROM m_user WHERE user_id = ?
+SELECT name, authority FROM m_user WHERE name = ?
 
 ## 雑誌リポジトリクラス
 ### 存在チェックメソッド（雑誌ID）
 #### 取得項目
-- 雑誌ID: magazine_id
+- 雑誌ID
 #### 取得元テーブル
-- 雑誌: magazine
+- 雑誌
 #### 条件
 - 雑誌ID = 引数.雑誌ID
 ### SQL
@@ -36,132 +36,132 @@ SELECT magazine_id FROM magazine WHERE magazine_id = ?
 
 ### 存在チェックメソッド（雑誌名、号数）
 #### 取得項目
-- 雑誌ID: magazine_id
+- 雑誌ID
 #### 取得元テーブル
-- 雑誌: magazine
+- 雑誌
 #### 条件
-- 雑誌名(magazine_name) = 引数.雑誌名
-- 号数(number) = 引数.号数
+- 雑誌名 = 引数.雑誌名
+- 号数 = 引数.号数
 #### SQL
-SELECT magazine_id FROM magazine WHERE magazine_name = ? AND number = ?
+SELECT magazine_id FROM magazine WHERE name = ? AND number = ?
 
 ### 単一レコード取得メソッド
 #### 取得項目
-- 雑誌名: magazine_name
-- 号数: number
-- 出版社: publisher
-- 発行日: issue_date
+- 雑誌名
+- 号数
+- 出版社
+- 発行日
 #### 取得元テーブル
-- 雑誌: magazine
+- 雑誌
 #### 条件
 - 雑誌ID = 引数.雑誌ID
 #### SQL
-SELECT magazine_name, number, publisher, issue_date FROM magazine WHERE magazine_id = ?
+SELECT name, number, publisher, issue_date FROM magazine WHERE magazine_id = ?
 
 ### 複数レコード取得メソッド
 #### 取得項目
-- 雑誌ID: magazine_id
-- 雑誌名: magazine_name
-- 号数: number
+- 雑誌ID
+- 雑誌名
+- 号数
 #### 取得元テーブル
-- 雑誌: magazine
+- 雑誌
 #### 条件
 なし
 #### SQL
-SELECT magazine_id, magazine_name, number FROM magazine
+SELECT magazine_id, name, number FROM magazine
 
 ### 削除メソッド
 #### 操作テーブル
-- 雑誌: magazine
+- 雑誌
 #### 条件
-- 雑誌ID(magazine_id) = 引数.雑誌ID
+- 雑誌ID = 引数.雑誌ID
 #### SQL
 DELETE FROM magazine WHERE magazine_id = ?
 
 ### 登録メソッド
 #### 操作テーブル
-- 雑誌: magazine
+- 雑誌
 #### 登録内容
-- 雑誌名(magazine_name) = 引数.雑誌名
-- 号数(number) = 引数.号数
-- 更新日付(update_time) = 現在日時
+- 雑誌名 = 引数.雑誌名
+- 号数 = 引数.号数
+- 更新日付 = 現在日時
 #### SQL
-INSERT INTO magazine(magazine_name, number, update_time) VALUES(?, ?, CURRENT_TIMESTAMP)
+INSERT INTO magazine(name, number, update_time) VALUES(?, ?, CURRENT_TIMESTAMP)
 
 ### 更新メソッド
 #### 操作テーブル
-- 雑誌: magazine
+- 雑誌
 #### 条件
-- 雑誌ID(magazine_id) = 引数.雑誌ID
+- 雑誌ID = 引数.雑誌ID
 #### 登録内容
-- 雑誌名(magazine_name) = 引数.雑誌名
-- 号数(number) = 引数.号数
-- 出版社(publisher) = 引数.出版社
-- 発行日(issue_date) = 引数.発行日
-- 更新日付(update_time) = 現在日時
+- 雑誌名 = 引数.雑誌名
+- 号数 = 引数.号数
+- 出版社 = 引数.出版社
+- 発行日 = 引数.発行日
+- 更新日付 = 現在日時
 #### SQL
-UPDATE magazine SET magazine_name = ?, number = ?, publisher = ?, issue_date = ?, update_time = CURRENT_TIMESTAMP WHERE magazine_id = ?
+UPDATE magazine SET name = ?, number = ?, publisher = ?, issue_date = ?, update_time = CURRENT_TIMESTAMP WHERE magazine_id = ?
 
-## 目次リポジトリクラス
+## 記事リポジトリクラス
 ### 複数レコード取得メソッド
 #### 取得項目
-- セクション: section
-- タイトル: title
-- 開始ページ: start_page
+- セクション
+- タイトル
+- 開始ページ
 #### 取得元テーブル
-- 目次: contents
+- 記事
 #### 条件
-- 雑誌ID(magazine_id) = 引数.雑誌ID
+- 雑誌ID = 引数.雑誌ID
 #### SQL
-SELECT section, title, start_page FROM contents WHERE magazine_id = ?
+SELECT section, title, start_page FROM article WHERE magazine_id = ?
 
 ### 削除メソッド
 #### 操作テーブル
-- 目次: contents
+- 記事
 #### 条件
-- 雑誌ID(magazine_id) = 引数.雑誌ID
+- 雑誌ID = 引数.雑誌ID
 #### SQL
-DELETE FROM contents WHERE magazine_id = ?
+DELETE FROM article WHERE magazine_id = ?
 
 ### 登録メソッド
 #### 操作テーブル
-- 目次: contents
+- 記事
 #### 登録内容
-- 雑誌ID(magazine_id) = 引数.雑誌ID
-- セクション(section) = 引数.セクション
-- タイトル(title) = 引数.タイトル
-- 開始ページ(start_page) = 引数.開始ページ
-- 更新日付(update_time) = 現在日時
+- 雑誌ID = 引数.雑誌ID
+- セクション = 引数.セクション
+- タイトル = 引数.タイトル
+- 開始ページ = 引数.開始ページ
+- 更新日付 = 現在日時
 #### SQL
-INSERT INTO contents(magazine_id, section, title, start_page, update_time) VALUES(?, ?, ?, ?, CURRENT_TIMESTAMP)
+INSERT INTO article(magazine_id, section, title, start_page, update_time) VALUES(?, ?, ?, ?, CURRENT_TIMESTAMP)
 
-## 索引リポジトリクラス
+## キーワードリポジトリクラス
 ### 複数レコード取得メソッド
 #### 取得項目
-- キーワード: keyword
-- 開始ページ: start_page
+- キーワード
+- 開始ページ
 #### 取得元テーブル
-- 索引: index
+- キーワード
 #### 条件
-- 雑誌ID(magazine_id) = 引数.雑誌ID
+- 雑誌ID = 引数.雑誌ID
 #### SQL
-SELECT keyword, start_page FROM index WHERE magazine_id = ?
+SELECT word, start_page FROM keyword WHERE magazine_id = ?
 
 ### 削除メソッド
 #### 操作テーブル
-- 索引: index
+- キーワード
 #### 条件
-- 雑誌ID(magazine_id) = 引数.雑誌ID
+- 雑誌ID = 引数.雑誌ID
 #### SQL
-DELETE FROM index WHERE magazine_id = ?
+DELETE FROM keyword WHERE magazine_id = ?
 
 ### 登録メソッド
 #### 操作テーブル
-- 索引: index
+- キーワード
 #### 登録内容
-- 雑誌ID(magazine_id) = 引数.雑誌ID
-- キーワード(keyword) = 引数.キーワード
-- 開始ページ(start_page) = 引数.開始ページ
-- 更新日付(update_time) = 現在日時
+- 雑誌ID = 引数.雑誌ID
+- キーワード = 引数.キーワード
+- 開始ページ = 引数.開始ページ
+- 更新日付 = 現在日時
 #### SQL
-INSERT INTO contents(magazine_id, keyword, start_page, update_time) VALUES(?, ?, ?, CURRENT_TIMESTAMP)
+INSERT INTO keyword(magazine_id, word, start_page, update_time) VALUES(?, ?, ?, CURRENT_TIMESTAMP)
