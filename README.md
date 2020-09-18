@@ -43,6 +43,8 @@
     - [x] View⇔Controller間の受け渡し
     - [x] データベースのレコードを格納するためのDTO
 - [x] SQLクエリの設計
+- [x] エラーメッセージの定義
+- [ ] エラー画面の定義
 
 
 ## 設計書等
@@ -63,3 +65,4 @@
 - [CRUDの定義](doc/crud.md)
 - [DTOの中身の定義](doc/dto-item.md)
 - [SQLクエリの設計](doc/sql-query.md)
+- [エラーメッセージの定義](doc/error-message.md)
