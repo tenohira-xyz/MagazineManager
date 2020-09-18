@@ -62,12 +62,17 @@ xyz.tenohira.magazinemanager.domain.repository.impl
 |目次|ArticleDaoImpl|
 |索引|KeywordDaoImpl|
 
+### 例外クラス
+|論理名|物理名|
+|:--|:--| 
+|雑誌未指定例外|MagazineUnspecifiedException|
+|雑誌非存在例外|MagazineNotExistException|
+|雑誌登録済例外|MagazineRegisteredException|
+
 ## リソース
 src/main/resources
 
 ### ビュー
-
-#### 業務画面
 templates
 
 |論理名|物理名|
@@ -78,15 +83,4 @@ templates
 |雑誌詳細画面|detail.html|
 |目次画面|content.html|
 |索引画面|index.html|
-
-#### エラー画面
-templates/error
-
-|論理名|物理名|
-|:--|:--| 
 |共通エラー画面|error.html|
-|アクセス不可エラー画面|deny.html|
-|セッション切れエラー画面|session.html|
-|雑誌未指定エラー画面|unspecified.html|
-|雑誌非存在エラー画面|not-exist.html|
-|雑誌登録済エラー画面|registered.html|
