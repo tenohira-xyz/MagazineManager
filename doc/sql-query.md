@@ -27,24 +27,24 @@ SELECT name, authority FROM m_user WHERE name = ?
 ## 雑誌リポジトリクラス
 ### 存在チェックメソッド（雑誌ID）
 #### 取得項目
-- 雑誌ID
+- レコード数（雑誌ID）
 #### 取得元テーブル
 - 雑誌
 #### 条件
 - 雑誌ID = 引数.雑誌ID
 ### SQL
-SELECT magazine_id FROM magazine WHERE magazine_id = ?
+SELECT count(magazine_id) FROM magazine WHERE magazine_id = ?
 
 ### 存在チェックメソッド（雑誌名、号数）
 #### 取得項目
-- 雑誌ID
+- レコード数（雑誌ID）
 #### 取得元テーブル
 - 雑誌
 #### 条件
 - 雑誌名 = 引数.雑誌名
 - 号数 = 引数.号数
 #### SQL
-SELECT magazine_id FROM magazine WHERE name = ? AND number = ?
+SELECT count(magazine_id) FROM magazine WHERE name = ? AND number = ?
 
 ### 単一レコード取得メソッド
 #### 取得項目
