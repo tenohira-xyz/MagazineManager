@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/list").permitAll()
-				.antMatchers("/detail").permitAll()
-				.antMatchers("/contents").permitAll()
-				.antMatchers("/index").permitAll()
+				.antMatchers("/detail/**").permitAll()
+				.antMatchers("/contents/**").permitAll()
+				.antMatchers("/index/**").permitAll()
 				.antMatchers("/h2-console/**").permitAll()	// H2DBデバッグ用
 				.anyRequest().authenticated();
 		

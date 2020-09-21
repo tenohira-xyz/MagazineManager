@@ -29,7 +29,7 @@
 			name,
 			number,
 			publisher,
-			issue_date
+			issue_date AS issueDate
 		FROM magazine
 		WHERE magazine_id = #{magazineId}
 	</select>

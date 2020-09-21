@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>雑誌詳細</title>
+</head>
+<body>
+	<a th:href="@{/}">MagazineManager</a>
+	<a th:href="@{/login}" role="presentation" sec:authorize="isAnonymous()">ログイン</a>
+	<a th:href="@{/logout}" role="presentation" sec:authorize="hasRole('ADMIN')">ログアウト</a>
+	
+	<h1>雑誌詳細</h1>
+	
+	<div role="presentation" sec:authorize="isAnonymous()" th:object="${detailForm}">
+		<span>雑誌名</span>
+		<span th:text="*{name}"></span><br>
+		<span>号数</span>
+		<span th:text="*{number}"></span><br>
+		<span>出版社</span>
+		<span th:text="*{publisher}"></span><br>
+		<span>発行日</span>
+		<span th:text="${#dates.format(detailForm.issueDate, 'yyyy/MM/dd')}"></span><br>
+		
+		<a th:href="@{/list}">戻る</a>
+	</div>
+	
+	<div role="presentation" sec:authorize="hasRole('ADMIN')">
+		<form method="post" th:action="@{'/detail/' + *{magazineId} + '/update'}" th:object="${detailForm}">
+			<label>雑誌名</label>
+			<input type="text" th:field="*{name}" /><br>
+			<label>号数</label>
+			<input type="text" th:field="*{number}" /><br>
+			<label>出版社</label>
+			<input type="text" th:field="*{publisher}" /><br>
+			<label>発行日</label>
+			<input type="date" th:field="*{issueDate}" /><br>
+			<input type="hidden" th:field="*{magazineId}">
+			
+			<input type="submit" value="登録" /><br>
+			<a th:href="@{/list}">戻る</a>
+			
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}">
+					<span th:text="${error.message}">エラーメッセージ</span>
+				</li>
+			</ul>
+		</form>
+	</div>
+</body>
+</html>
