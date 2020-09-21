@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>雑誌新規登録</title>
+</head>
+<body>
+	<a th:href="@{/list}">MagazineManager</a>
+	<a th:href="@{/}">ログアウト</a>
+	
+	<h1>雑誌新規登録</h1>
+
+	<form method="post" th:action="@{/register/create}" th:object="${registerForm}">
+		<label>雑誌名</label>
+		<input type="text" th:field="*{name}" /><br>
+		<label>号数</label>
+		<input type="text" th:field="*{number}" /><br>
+		
+		<input type="submit" value="登録" /><br>
+		<a th:href="@{/list}">戻る</a>
+		
+		<ul>
+			<li th:each="error : ${#fields.detailedErrors()}">
+				<span th:text="${error.message}">エラーメッセージ</span>
+			</li>
+		</ul>
+	</form>
+</body>
+</html>

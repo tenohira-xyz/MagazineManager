@@ -19,7 +19,7 @@
 	<select id="selectByData" parameterType="xyz.tenohira.magazinemanager.domain.model.Magazine" resultType="int">
 		SELECT count(magazine_id)
 		FROM magazine
-		WHERE name = #{magazineName}
+		WHERE name = #{name}
 		AND number = #{number}
 	</select>
 	
