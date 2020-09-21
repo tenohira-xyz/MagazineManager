@@ -24,7 +24,7 @@ public class MagazineListController {
 	MagazineService service;
 	
 	@GetMapping({"/", "/list"})
-	public String getList(Model model) {
+	public String load(Model model) {
 		
 		// レコードリスト取得
 		List<Magazine> list = service.getList();
@@ -43,7 +43,7 @@ public class MagazineListController {
 	
 	@PostMapping("/list/delete/{id}")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public String postListDelete(Model model, @PathVariable("id") int magazineId) throws Exception {
+	public String delete(Model model, @PathVariable("id") int magazineId) throws Exception {
 		
 		System.out.println("magazineId:" + magazineId);
 		
