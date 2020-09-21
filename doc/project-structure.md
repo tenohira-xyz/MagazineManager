@@ -65,7 +65,6 @@ xyz.tenohira.magazinemanager.domain.repository.impl
 ### 例外クラス
 |論理名|物理名|
 |:--|:--| 
-|雑誌未指定例外|MagazineUnspecifiedException|
 |雑誌非存在例外|MagazineNotExistException|
 |雑誌登録済例外|MagazineRegisteredException|
 
