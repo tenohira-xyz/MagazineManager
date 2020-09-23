@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.tenohira.magazinemanager.domain.repository.KeywordMapper">
+  	
+  	<resultMap type="xyz.tenohira.magazinemanager.domain.model.Keyword" id="keyword">
+		<result column="word" property="word" />
+		<result column="start_page" property="startPage" />
+	</resultMap>
+	
+	<!-- 複数レコード取得メソッド -->
+	<select id="selectList" parameterType="int" resultMap="keyword">
+		SELECT
+			word,
+			start_page
+		FROM keyword
+		WHERE magazine_id = #{magazineId}
+	</select>
+	
+	<!-- 削除メソッド -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM keyword WHERE magazine_id = #{magazineId}
+	</delete>
+	
+	<!-- 登録メソッド -->
+	<insert id="insert" parameterType="xyz.tenohira.magazinemanager.domain.model.Keyword">
+		INSERT INTO keyword(magazine_id, word, start_page, update_time)
+		VALUES(#{magazineId}, #{word}, #{startPage}, CURRENT_TIMESTAMP)
+	</insert>
+</mapper>

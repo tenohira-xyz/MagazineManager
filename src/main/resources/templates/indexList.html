@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>索引</title>
+</head>
+<body>
+	<a th:href="@{/}">MagazineManager</a>
+	<a th:href="@{/login}" role="presentation" sec:authorize="isAnonymous()">ログイン</a>
+	<a th:href="@{/logout}" role="presentation" sec:authorize="hasRole('ADMIN')">ログアウト</a>
+	
+	<h1>索引</h1>
+	
+	<div role="presentation" sec:authorize="isAnonymous()">
+		<table th:object="${indexForm}">
+			<tr>
+				<th>キーワード</th>
+				<th>開始ページ</th>
+			</tr>
+			<tr th:each="keyword : *{keywordList}">
+				<td th:text="${keyword.word}"></td>
+				<td th:text="${keyword.startPage}"></td>
+			</tr>
+		</table>
+		
+		<a th:href="@{/list}">戻る</a>
+	</div>
+	
+	<div role="presentation" sec:authorize="hasRole('ADMIN')">
+		<form method="post" th:action="@{'/index/' + *{magazineId} + '/update'}" th:object="${indexForm}">
+			<table>
+				<tr>
+					<th>キーワード</th>
+					<th>開始ページ</th>
+					<th>削除</th>
+				</tr>
+				<tr th:each="keyword : *{keywordList}">
+					<td>
+						<input type="text" th:field="*{keywordList[__${keywordStat.index}__].word}" />
+					</td>
+					<td>
+						<input type="number" th:field="*{keywordList[__${keywordStat.index}__].startPage}" />
+					</td>
+					<td>
+						<button type="submit" name="remove" th:value="${keywordStat.index}" th:formaction="@{'/index/' + *{magazineId} + '/edit'}">削除</button><br>
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" th:field="*{magazineId}">
+			
+			<button type="submit" name="add" th:formaction="@{'/index/' + *{magazineId} + '/edit'}">追加</button><br>
+			<br>
+			
+			<button type="submit">登録</button><br>
+			<a th:href="@{/list}">戻る</a>
+			
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}">
+					<span th:text="${error.message}">エラーメッセージ</span>
+				</li>
+			</ul>
+		</form>
+	</div>
+</body>
+</html>
