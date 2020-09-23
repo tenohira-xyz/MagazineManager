@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import xyz.tenohira.magazinemanager.domain.model.DetailForm;
+import xyz.tenohira.magazinemanager.domain.form.DetailForm;
 import xyz.tenohira.magazinemanager.domain.model.Magazine;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;
 import xyz.tenohira.magazinemanager.exception.MagazineNotExistException;

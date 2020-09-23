@@ -1,4 +1,4 @@
-package xyz.tenohira.magazinemanager.domain.model;
+package xyz.tenohira.magazinemanager.domain.form;
 
 import javax.validation.constraints.NotBlank;
 

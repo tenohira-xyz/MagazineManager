@@ -1,4 +1,4 @@
-package xyz.tenohira.magazinemanager.domain.model;
+package xyz.tenohira.magazinemanager.domain.form;
 
 import java.util.ArrayList;
 import java.util.List;
