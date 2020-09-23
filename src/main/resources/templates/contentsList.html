@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>目次</title>
+</head>
+<body>
+	<a th:href="@{/}">MagazineManager</a>
+	<a th:href="@{/login}" role="presentation" sec:authorize="isAnonymous()">ログイン</a>
+	<a th:href="@{/logout}" role="presentation" sec:authorize="hasRole('ADMIN')">ログアウト</a>
+	
+	<h1>目次</h1>
+	
+	<div role="presentation" sec:authorize="isAnonymous()">
+		<table th:object="${contentForm}">
+			<tr>
+				<th>セクション</th>
+				<th>タイトル</th>
+				<th>開始ページ</th>
+			</tr>
+			<tr th:each="article : *{articleList}">
+				<td th:text="${article.section}"></td>
+				<td th:text="${article.title}"></td>
+				<td th:text="${article.startPage}"></td>
+			</tr>
+		</table>
+		
+		<a th:href="@{/list}">戻る</a>
+	</div>
+	
+	<div role="presentation" sec:authorize="hasRole('ADMIN')">
+		<form method="post" th:action="@{'/contents/' + *{magazineId} + '/update'}" th:object="${contentForm}">
+			<table>
+				<tr>
+					<th>セクション</th>
+					<th>タイトル</th>
+					<th>開始ページ</th>
+					<th>削除</th>
+				</tr>
+				<tr th:each="article : *{articleList}">
+					<td>
+						<input type="text" th:field="*{articleList[__${articleStat.index}__].section}" />
+					</td>
+					<td>
+						<input type="text" th:field="*{articleList[__${articleStat.index}__].title}" />
+					</td>
+					<td>
+						<input type="number" th:field="*{articleList[__${articleStat.index}__].startPage}" />
+					</td>
+					<td>
+						<button type="submit" name="remove" th:value="${articleStat.index}" th:formaction="@{'/contents/' + *{magazineId} + '/edit'}">削除</button><br>
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" th:field="*{magazineId}">
+			
+			<button type="submit" name="add" th:formaction="@{'/contents/' + *{magazineId} + '/edit'}">追加</button><br>
+			<br>
+			
+			<button type="submit">登録</button><br>
+			<a th:href="@{/list}">戻る</a>
+			
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}">
+					<span th:text="${error.message}">エラーメッセージ</span>
+				</li>
+			</ul>
+		</form>
+	</div>
+</body>
+</html>
