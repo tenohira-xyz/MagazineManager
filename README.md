@@ -68,3 +68,5 @@
 - [エラーメッセージの定義](doc/error-message.md)
 - [例外の定義](doc/exception.md)
 - [サービスクラスの定義](doc/service.md)
+- [テスト項目](doc/test-item.md)
+- [テストデータ](doc/test-sql.md)
