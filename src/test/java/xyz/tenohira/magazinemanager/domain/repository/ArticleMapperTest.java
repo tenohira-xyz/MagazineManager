@@ -29,7 +29,6 @@ import xyz.tenohira.magazinemanager.domain.model.Article;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ArticleMapperTest {
 
 	@Autowired
@@ -41,7 +40,6 @@ class ArticleMapperTest {
 	// 複数レコード取得メソッドのテスト
 	@Test
 	@Sql("/article-1.sql")
-	@Order(1)
 	public void selectTest() {
 		
 		// 想定結果
@@ -73,15 +71,14 @@ class ArticleMapperTest {
 	// 削除メソッドのテスト
 	@Test
 	@Sql("/article-2.sql")
-	@Order(2)
 	public void deleteTest() {
 		
 		// テスト対象メソッドの実行
-		int magazineId = 2;
+		int magazineId = 1;
 		mapper.delete(magazineId);
 		
 		// テストデータの検索
-		int count = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 2", Integer.class);
+		int count = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 1", Integer.class);
 		
 		assertEquals(0, count);
 	}
@@ -89,12 +86,11 @@ class ArticleMapperTest {
 	// 登録メソッドのテスト
 	@Test
 	@Sql("/article-3.sql")
-	@Order(3)
 	public void insertTest() {
 		
 		// 想定結果
 		Article expected = new Article();
-		expected.setMagazineId(3);
+		expected.setMagazineId(1);
 		expected.setSection("テストセクション3-1");
 		expected.setTitle("テストタイトル3-1");
 		expected.setStartPage(123);
@@ -103,10 +99,10 @@ class ArticleMapperTest {
 		mapper.insert(expected);
 		
 		// 登録データを取得する
-		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT magazine_id, section, title, start_page FROM article WHERE magazine_id = 3");
+		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT magazine_id, section, title, start_page FROM article WHERE magazine_id = 1");
 		
 		// 結果比較
-		assertEquals(actual.get("magazine_id"), 3);
+		assertEquals(actual.get("magazine_id"), 1);
 		assertEquals(actual.get("section"), "テストセクション3-1");
 		assertEquals(actual.get("title"), "テストタイトル3-1");
 		assertEquals(actual.get("start_page"), 123);
