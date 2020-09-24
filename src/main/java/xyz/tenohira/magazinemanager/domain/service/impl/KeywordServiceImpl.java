@@ -25,28 +25,17 @@ public class KeywordServiceImpl implements KeywordService {
 	}
 
 	@Override
-	public boolean delete(int magazineId) {
+	public boolean update(int magazineId, List<Keyword> list) {
 		
-		int result = mapper.delete(magazineId);
-		return result > 0 ? true : false;
-	}
-
-	@Override
-	public int add(List<Keyword> list) {
+		// 指定した雑誌IDのレコードを削除
+		mapper.delete(magazineId);
 		
+		// 記事を1件ずつ登録
 		int result = 0;
 		for (Keyword keyword : list) {
 			result += mapper.insert(keyword);
 		}
-		return result;
-	}
-
-	@Override
-	public boolean update(int magazineId, List<Keyword> list) {
 		
-		this.delete(magazineId);
-		int result = this.add(list);
 		return result == list.size() ? true : false;
 	}
-
 }

@@ -25,27 +25,17 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean delete(int magazineId) {
+	public boolean update(int magazineId, List<Article> list) {
 		
-		int result = mapper.delete(magazineId);
-		return result > 0 ? true : false;
-	}
-
-	@Override
-	public int add(List<Article> list) {
+		// 指定した雑誌IDのレコードを削除
+		mapper.delete(magazineId);
 		
+		// 記事を1件ずつ登録
 		int result = 0;
 		for (Article article : list) {
 			result += mapper.insert(article);
 		}
-		return result;
-	}
-
-	@Override
-	public boolean update(int magazineId, List<Article> list) {
 		
-		this.delete(magazineId);
-		int result = this.add(list);
-		return result ==list.size() ? true : false;
+		return result == list.size() ? true : false;
 	}
 }
