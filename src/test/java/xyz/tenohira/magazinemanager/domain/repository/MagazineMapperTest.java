@@ -30,7 +30,7 @@ class MagazineMapperTest {
 	
 	// 存在チェックメソッド（雑誌ID）
 	@Test
-	@Sql("/magazine-1.sql")
+	@Sql("/repository/magazine-1.sql")
 	public void checkTest1() {
 		
 		// テスト対象メソッドの実行
@@ -41,7 +41,7 @@ class MagazineMapperTest {
 	
 	// 存在チェックメソッド（雑誌名、号数）
 	@Test
-	@Sql("/magazine-2.sql")
+	@Sql("/repository/magazine-2.sql")
 	public void checkTest2() {
 		
 		// テスト対象メソッドの実行
@@ -55,7 +55,7 @@ class MagazineMapperTest {
 	
 	// 単一レコード取得メソッド
 	@Test
-	@Sql("/magazine-3.sql")
+	@Sql("/repository/magazine-3.sql")
 	public void select() {
 		
 		// テスト対象メソッドの実行
@@ -69,7 +69,7 @@ class MagazineMapperTest {
 	
 	// 複数レコード取得メソッド
 	@Test
-	@Sql("/magazine-4.sql")
+	@Sql("/repository/magazine-4.sql")
 	public void selectList() {
 		
 		// テスト対象メソッドの実行
@@ -88,7 +88,7 @@ class MagazineMapperTest {
 	
 	// 削除メソッド
 	@Test
-	@Sql("/magazine-5.sql")
+	@Sql("/repository/magazine-5.sql")
 	public void delete() {
 		
 		// テスト対象メソッドの実行
@@ -119,7 +119,7 @@ class MagazineMapperTest {
 	
 	// 更新メソッド
 	@Test
-	@Sql("/magazine-7.sql")
+	@Sql("/repository/magazine-7.sql")
 	public void update() {
 		
 		// 登録対象

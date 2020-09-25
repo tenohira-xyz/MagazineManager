@@ -29,7 +29,7 @@ class KeywordMapperTest {
 	
 	// 複数レコード取得メソッド
 	@Test
-	@Sql("/keyword-1.sql")
+	@Sql("/repository/keyword-1.sql")
 	public void selectTest() {
 		
 		// テスト対象メソッドの実行
@@ -46,7 +46,7 @@ class KeywordMapperTest {
 	
 	// 削除メソッド
 	@Test
-	@Sql("/keyword-2.sql")
+	@Sql("/repository/keyword-2.sql")
 	public void deleteTest() {
 		
 		// テスト対象メソッドの実行
@@ -60,7 +60,7 @@ class KeywordMapperTest {
 	
 	// 登録メソッド
 	@Test
-	@Sql("/keyword-3.sql")
+	@Sql("/repository/keyword-3.sql")
 	public void insertTest() {
 		
 		// 登録対象

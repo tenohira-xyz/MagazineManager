@@ -40,7 +40,7 @@ class ArticleMapperTest {
 	
 	// 複数レコード取得メソッドのテスト
 	@Test
-	@Sql("/article-1.sql")
+	@Sql("/repository/article-1.sql")
 	public void selectTest() {
 		
 		// テスト対象メソッドの実行
@@ -60,7 +60,7 @@ class ArticleMapperTest {
 	
 	// 削除メソッドのテスト
 	@Test
-	@Sql("/article-2.sql")
+	@Sql("/repository/article-2.sql")
 	public void deleteTest() {
 		
 		// テスト対象メソッドの実行
@@ -75,7 +75,7 @@ class ArticleMapperTest {
 	
 	// 登録メソッドのテスト
 	@Test
-	@Sql("/article-3.sql")
+	@Sql("/repository/article-3.sql")
 	public void insertTest() {
 		
 		// 想定結果
