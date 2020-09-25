@@ -1,5 +1,6 @@
 package xyz.tenohira.magazinemanager.domain.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -42,30 +43,19 @@ class ArticleMapperTest {
 	@Sql("/article-1.sql")
 	public void selectTest() {
 		
-		// 想定結果
-		List<Article> expected = new ArrayList<>();
-		Article article1 = new Article();
-		article1.setSection("テストセクション1-1");
-		article1.setTitle("テストタイトル1-1");
-		article1.setStartPage(1);
-		expected.add(article1);
-		Article article2 = new Article();
-		article2.setSection("テストセクション1-2");
-		article2.setTitle("テストタイトル1-2");
-		article2.setStartPage(10);
-		expected.add(article2);
-		Article article3 = new Article();
-		article3.setSection("□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■");
-		article3.setTitle("□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■");
-		article3.setStartPage(999);
-		expected.add(article3);
-		
 		// テスト対象メソッドの実行
-		int magazineId = 1;
-		List<Article> actual = mapper.selectList(magazineId);
+		List<Article> actual = mapper.selectList(1);
 		
 		// 実行結果と想定結果の比較
-		assertIterableEquals(expected, actual);
+		assertThat(actual.get(0).getSection()).isEqualTo("テストセクション1-1");
+		assertThat(actual.get(0).getTitle()).isEqualTo("テストタイトル1-1");
+		assertThat(actual.get(0).getStartPage()).isEqualTo(1);
+		assertThat(actual.get(1).getSection()).isEqualTo("テストセクション1-2");
+		assertThat(actual.get(1).getTitle()).isEqualTo("テストタイトル1-2");
+		assertThat(actual.get(1).getStartPage()).isEqualTo(10);
+		assertThat(actual.get(2).getSection()).isEqualTo("□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■");
+		assertThat(actual.get(2).getTitle()).isEqualTo("□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■");
+		assertThat(actual.get(2).getStartPage()).isEqualTo(999);
 	}
 	
 	// 削除メソッドのテスト
@@ -89,23 +79,23 @@ class ArticleMapperTest {
 	public void insertTest() {
 		
 		// 想定結果
-		Article expected = new Article();
-		expected.setMagazineId(1);
-		expected.setSection("テストセクション3-1");
-		expected.setTitle("テストタイトル3-1");
-		expected.setStartPage(123);
+		Article article = new Article();
+		article.setMagazineId(1);
+		article.setSection("テストセクション3-1");
+		article.setTitle("テストタイトル3-1");
+		article.setStartPage(123);
 				
 		// テスト対象メソッドの実行
-		mapper.insert(expected);
+		mapper.insert(article);
 		
 		// 登録データを取得する
 		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT magazine_id, section, title, start_page FROM article WHERE magazine_id = 1");
 		
 		// 結果比較
-		assertEquals(actual.get("magazine_id"), 1);
-		assertEquals(actual.get("section"), "テストセクション3-1");
-		assertEquals(actual.get("title"), "テストタイトル3-1");
-		assertEquals(actual.get("start_page"), 123);
+		assertThat(actual.get("magazine_id")).isEqualTo(1);
+		assertThat(actual.get("section")).isEqualTo("テストセクション3-1");
+		assertThat(actual.get("title")).isEqualTo("テストタイトル3-1");
+		assertThat(actual.get("start_page")).isEqualTo(123);
 	}
 
 }
