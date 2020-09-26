@@ -77,7 +77,7 @@
 [リポジトリクラスのテストケース](test-item-repository.md)
 
 ## サービスクラス
-[サービスクラスのテストケース](test-item-service,md)
+[サービスクラスのテストケース](test-item-service.md)
 
 ## 画面レイアウト
 →コントローラクラスのテストで実施する。
