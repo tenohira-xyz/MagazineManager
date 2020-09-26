@@ -28,6 +28,7 @@ class KeywordMapperTest {
 	JdbcTemplate jdbcTemplate;
 	
 	// 複数レコード取得メソッド
+	// 指定した雑誌が存在する場合
 	@Test
 	@Sql("/repository/keyword-1.sql")
 	public void selectTest() {
@@ -36,6 +37,7 @@ class KeywordMapperTest {
 		List<Keyword> actual = mapper.selectList(1);
 		
 		// 検証
+		assertThat(actual.size()).isEqualTo(3);
 		assertThat(actual.get(0).getWord()).isEqualTo("テスト単語1-1");
 		assertThat(actual.get(0).getStartPage()).isEqualTo(1);
 		assertThat(actual.get(1).getWord()).isEqualTo("テスト単語1-2");
@@ -44,7 +46,19 @@ class KeywordMapperTest {
 		assertThat(actual.get(2).getStartPage()).isEqualTo(999);
 	}
 	
+	// 指定した雑誌が存在しない場合
+	@Test
+	@Sql("/repository/keyword-1.sql")
+	public void selectFailedTest() {
+		
+		// テスト対象メソッドの実行
+		List<Keyword> actual = mapper.selectList(2);
+		
+		assertThat(actual.size()).isEqualTo(0);
+	}
+	
 	// 削除メソッド
+	// 指定した雑誌が存在する場合
 	@Test
 	@Sql("/repository/keyword-2.sql")
 	public void deleteTest() {
@@ -54,13 +68,35 @@ class KeywordMapperTest {
 		assertThat(before).isEqualTo(1);
 		
 		// テスト対象メソッドの実行
-		mapper.delete(1);
+		int result = mapper.delete(1);
+		
+		// メソッドの戻り値を検証
+		assertThat(result).isEqualTo(1);
 		
 		// 削除後の対象テストデータ件数を検証
 		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
 		assertThat(after).isEqualTo(0);
 	}
 	
+	// 指定した雑誌が存在しない場合
+	@Test
+	@Sql("/repository/keyword-2.sql")
+	public void deleteFailedTest() {
+		
+		// 削除前の対象テストデータ件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
+		assertThat(before).isEqualTo(1);
+		
+		// テスト対象メソッドの実行
+		int result = mapper.delete(2);
+		
+		// メソッドの戻り値を検証
+		assertThat(result).isEqualTo(0);
+		
+		// 削除後の対象テストデータ件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
+		assertThat(after).isEqualTo(1);
+	}
 	
 	// 登録メソッド
 	@Test
