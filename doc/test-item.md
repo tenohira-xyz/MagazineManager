@@ -74,10 +74,10 @@
     - 登録処理が実行されることを確認
 
 ## リポジトリクラス
-[リポジトリクラスのテストケース](doc/test-item-repository.md)
+[リポジトリクラスのテストケース](test-item-repository.md)
 
 ## サービスクラス
-[サービスクラスのテストケース](doc/test-item-service,md)
+[サービスクラスのテストケース](test-item-service,md)
 
 ## 画面レイアウト
 →コントローラクラスのテストで実施する。
