@@ -3,6 +3,7 @@ package xyz.tenohira.magazinemanager.domain.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,10 +31,15 @@ public class ArticleServiceImpl implements ArticleService {
 		// 指定した雑誌IDのレコードを削除
 		mapper.delete(magazineId);
 		
-		// 記事を1件ずつ登録
 		int result = 0;
-		for (Article article : list) {
-			result += mapper.insert(article);
+		try {
+			// 記事を1件ずつ登録
+			for (Article article : list) {
+				result += mapper.insert(article);
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			return false;
 		}
 		
 		return result == list.size() ? true : false;
