@@ -139,7 +139,7 @@ class MagazineServiceTest {
 	}
 	
 	// 削除メソッド
-	// 指定した雑誌が存在する場合
+	// 指定した雑誌が存在する場合（雑誌レコードのみの場合）
 	@Test
 	@Sql("/repository/magazine-5.sql")
 	public void deleteTest() {
@@ -157,6 +157,34 @@ class MagazineServiceTest {
 		// 検証
 		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
 		assertThat(after).isEqualTo(0);
+	}
+	
+	//  指定した雑誌が存在する場合（記事やキーワードが登録されている場合）
+	@Test
+	@Sql("/service/magazine-5.sql")
+	public void deleteTest2() {
+		
+		// 削除前に削除対象のレコード数を検証する
+		int beforeMagazine = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
+		assertThat(beforeMagazine).isEqualTo(1);
+		int beforeArticle = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 1", Integer.class);
+		assertThat(beforeArticle).isEqualTo(1);
+		int beforeKeyword = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
+		assertThat(beforeKeyword).isEqualTo(1);
+		
+		// テスト対象メソッドの実行
+		boolean result = service.delete(1);
+				
+		// メソッドの戻り値を検証
+		assertThat(result).isTrue();
+				
+		// 検証
+		int afterMagazine = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
+		assertThat(afterMagazine).isEqualTo(0);
+		int afterArticle = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 1", Integer.class);
+		assertThat(afterArticle).isEqualTo(0);
+		int afterKeyword = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
+		assertThat(afterKeyword).isEqualTo(0);
 	}
 	
 	// 指定した雑誌が存在しない場合

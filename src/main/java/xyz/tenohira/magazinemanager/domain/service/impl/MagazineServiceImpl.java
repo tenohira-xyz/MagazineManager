@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import xyz.tenohira.magazinemanager.domain.model.Magazine;
+import xyz.tenohira.magazinemanager.domain.repository.ArticleMapper;
+import xyz.tenohira.magazinemanager.domain.repository.KeywordMapper;
 import xyz.tenohira.magazinemanager.domain.repository.MagazineMapper;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;
 
@@ -15,13 +17,19 @@ import xyz.tenohira.magazinemanager.domain.service.MagazineService;
 public class MagazineServiceImpl implements MagazineService {
 
 	@Autowired
-	MagazineMapper dao;
+	MagazineMapper magazineMapper;
+	
+	@Autowired
+	ArticleMapper articleMapper;
+	
+	@Autowired
+	KeywordMapper keywordMapper;
 	
 	@Override
 	public boolean isExistById(int magazineId) {
 		
 		// レコード数取得
-		int count = dao.selectById(magazineId);
+		int count = magazineMapper.selectById(magazineId);
 		return count > 0 ? true : false;
 	}
 
@@ -33,7 +41,7 @@ public class MagazineServiceImpl implements MagazineService {
 		magazine.setNumber(number);
 		
 		// レコード数取得
-		int count = dao.selectByData(magazine);
+		int count = magazineMapper.selectByData(magazine);
 		return count > 0 ? true : false;
 	}
 
@@ -41,7 +49,7 @@ public class MagazineServiceImpl implements MagazineService {
 	public Magazine getData(int magazineId) {
 		
 		// レコード取得
-		Magazine magazine = dao.select(magazineId);
+		Magazine magazine = magazineMapper.select(magazineId);
 		return magazine;
 	}
 
@@ -49,28 +57,31 @@ public class MagazineServiceImpl implements MagazineService {
 	public List<Magazine> getList() {
 		
 		// レコードリスト取得
-		List<Magazine> list = dao.selectList();
+		List<Magazine> list = magazineMapper.selectList();
 		return list;
 	}
 
 	@Override
 	public boolean delete(int magazineId) {
 		
-		int result = dao.delete(magazineId);
-		return result > 0 ? true : false;
+		int articleResult = articleMapper.delete(magazineId);
+		int keywordResult = keywordMapper.delete(magazineId);
+		
+		int magazineResult = magazineMapper.delete(magazineId);
+		return magazineResult > 0 ? true : false;
 	}
 
 	@Override
 	public boolean add(Magazine magazine) {
 		
-		int result = dao.insert(magazine);
+		int result = magazineMapper.insert(magazine);
 		return result > 0 ? true : false;
 	}
 
 	@Override
 	public boolean update(Magazine magazine) {
 		
-		int result = dao.update(magazine);
+		int result = magazineMapper.update(magazine);
 		return result > 0 ? true : false;
 	}
 
