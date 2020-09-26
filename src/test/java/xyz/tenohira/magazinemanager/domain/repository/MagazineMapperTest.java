@@ -56,7 +56,7 @@ class MagazineMapperTest {
 	// 単一レコード取得メソッド
 	@Test
 	@Sql("/repository/magazine-3.sql")
-	public void select() {
+	public void selectTest() {
 		
 		// テスト対象メソッドの実行
 		Magazine actual = mapper.select(1);
@@ -70,7 +70,7 @@ class MagazineMapperTest {
 	// 複数レコード取得メソッド
 	@Test
 	@Sql("/repository/magazine-4.sql")
-	public void selectList() {
+	public void selectListTest() {
 		
 		// テスト対象メソッドの実行
 		List<Magazine> actual = mapper.selectList();
@@ -89,19 +89,27 @@ class MagazineMapperTest {
 	// 削除メソッド
 	@Test
 	@Sql("/repository/magazine-5.sql")
-	public void delete() {
+	public void deleteTest() {
+		
+		// 削除前の対象テストデータ件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
+		assertThat(before).isEqualTo(1);
 		
 		// テスト対象メソッドの実行
 		mapper.delete(1);
 		
-		// 検証
-		int count = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
-		assertThat(count).isEqualTo(0);
+		// 削除後の対象テストデータ件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
+		assertThat(after).isEqualTo(0);
 	}
 	
 	// 登録メソッド
 	@Test
-	public void insert() {
+	public void insertTest() {
+		
+		// 登録前のテーブル内レコード件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine", Integer.class);
+		assertThat(before).isEqualTo(0);
 		
 		// 登録対象
 		Magazine magazine = new Magazine();
@@ -110,6 +118,10 @@ class MagazineMapperTest {
 		
 		// テスト対象メソッドの実行
 		mapper.insert(magazine);
+		
+		// 登録前のテーブル内レコード件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine", Integer.class);
+		assertThat(after).isEqualTo(1);
 		
 		// 検証
 		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT name, number, publisher, issue_date FROM magazine");
@@ -120,7 +132,11 @@ class MagazineMapperTest {
 	// 更新メソッド
 	@Test
 	@Sql("/repository/magazine-7.sql")
-	public void update() {
+	public void updateTest() {
+		
+		// 更新前の対象テストデータ件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
+		assertThat(before).isEqualTo(1);
 		
 		// 登録対象
 		Magazine magazine = new Magazine();
@@ -132,6 +148,10 @@ class MagazineMapperTest {
 		
 		// テスト対象メソッドの実行
 		mapper.update(magazine);
+		
+		// 更新前の対象テストデータ件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM magazine WHERE magazine_id = 1", Integer.class);
+		assertThat(after).isEqualTo(1);
 		
 		// 検証
 		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT magazine_id, name, number, publisher, issue_date FROM magazine WHERE magazine_id = 1");

@@ -49,12 +49,16 @@ class KeywordMapperTest {
 	@Sql("/repository/keyword-2.sql")
 	public void deleteTest() {
 		
+		// 削除前の対象テストデータ件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
+		assertThat(before).isEqualTo(1);
+		
 		// テスト対象メソッドの実行
 		mapper.delete(1);
 		
-		// 検証
-		int count = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
-		assertThat(count).isEqualTo(0);
+		// 削除後の対象テストデータ件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
+		assertThat(after).isEqualTo(0);
 	}
 	
 	
@@ -62,6 +66,10 @@ class KeywordMapperTest {
 	@Test
 	@Sql("/repository/keyword-3.sql")
 	public void insertTest() {
+		
+		// 登録前のテーブル内レコード件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword", Integer.class);
+		assertThat(before).isEqualTo(0);
 		
 		// 登録対象
 		Keyword keyword = new Keyword();
@@ -71,6 +79,10 @@ class KeywordMapperTest {
 		
 		// テスト対象メソッドの実行
 		mapper.insert(keyword);
+		
+		// 登録後のテーブル内レコード件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword", Integer.class);
+		assertThat(after).isEqualTo(1);
 		
 		// 検証
 		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT magazine_id, word, start_page FROM keyword WHERE magazine_id = 1");

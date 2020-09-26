@@ -63,14 +63,16 @@ class ArticleMapperTest {
 	@Sql("/repository/article-2.sql")
 	public void deleteTest() {
 		
+		// 削除前の対象テストデータ件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 1", Integer.class);
+		assertThat(before).isEqualTo(1);
+		
 		// テスト対象メソッドの実行
-		int magazineId = 1;
-		mapper.delete(magazineId);
+		mapper.delete(1);
 		
-		// テストデータの検索
-		int count = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 1", Integer.class);
-		
-		assertEquals(0, count);
+		// 削除後の対象テストデータ件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM article WHERE magazine_id = 1", Integer.class);
+		assertThat(after).isEqualTo(0);
 	}
 	
 	// 登録メソッドのテスト
@@ -78,7 +80,11 @@ class ArticleMapperTest {
 	@Sql("/repository/article-3.sql")
 	public void insertTest() {
 		
-		// 想定結果
+		// 登録前のテーブル内レコード件数を検証
+		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM article", Integer.class);
+		assertThat(before).isEqualTo(0);
+		
+		// 登録対象
 		Article article = new Article();
 		article.setMagazineId(1);
 		article.setSection("テストセクション3-1");
@@ -87,6 +93,10 @@ class ArticleMapperTest {
 				
 		// テスト対象メソッドの実行
 		mapper.insert(article);
+		
+		// 登録後のテーブル内レコード件数を検証
+		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM article", Integer.class);
+		assertThat(after).isEqualTo(1);
 		
 		// 登録データを取得する
 		Map<String, Object> actual = jdbcTemplate.queryForMap("SELECT magazine_id, section, title, start_page FROM article WHERE magazine_id = 1");
