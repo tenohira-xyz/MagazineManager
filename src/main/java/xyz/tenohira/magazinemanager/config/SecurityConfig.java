@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 @EnableWebSecurity
 @Configuration
@@ -44,6 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/index/**").permitAll()
 				.antMatchers("/h2-console/**").permitAll()	// H2DBデバッグ用
 				.anyRequest().authenticated();
+		
+		// 未認証時のアクセス拒否の設定
+		http
+				.exceptionHandling()
+					.authenticationEntryPoint(new Http403ForbiddenEntryPoint());
 		
 		http.csrf().disable();	// H2DBデバッグ用
 		http.headers().frameOptions().disable(); // H2DBデバッグ用
