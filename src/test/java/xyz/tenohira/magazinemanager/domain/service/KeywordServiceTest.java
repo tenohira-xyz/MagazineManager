@@ -1,149 +1,147 @@
 package xyz.tenohira.magazinemanager.domain.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.jdbc.Sql;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
 import xyz.tenohira.magazinemanager.domain.model.Keyword;
+import xyz.tenohira.magazinemanager.domain.repository.KeywordMapper;
+import xyz.tenohira.magazinemanager.domain.repository.MagazineMapper;
+import xyz.tenohira.magazinemanager.domain.service.impl.KeywordServiceImpl;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
-@Transactional
 class KeywordServiceTest {
 
-	@Autowired
-	KeywordService service;
+	@InjectMocks
+	KeywordServiceImpl service;
 	
-	@Autowired
-	JdbcTemplate jdbcTemplate;
+	@Mock
+	MagazineMapper magazineMapper;
 	
-	// 複数レコード取得メソッド
-	// 指定した雑誌が存在する場合
+	@Mock
+	KeywordMapper keywordMapper;
+	
 	@Test
-	@Sql("/repository/keyword-1.sql")
-	public void getListTest() {
+	public void 複数レコード取得_雑誌が存在する() {
 		
-		// テスト対象メソッドの実行
-		List<Keyword> actual = service.getList(1);
+		// リポジトリ層のモックを作成する
+		List<Keyword> list = new ArrayList<>();
+		Keyword keyword1 = new Keyword();
+		keyword1.setWord("テスト単語１");
+		keyword1.setStartPage(10);
+		list.add(keyword1);
+		Keyword keyword2 = new Keyword();
+		keyword2.setWord("テスト単語２");
+		keyword2.setStartPage(20);
+		list.add(keyword2);
+		Keyword keyword3 = new Keyword();
+		keyword3.setWord("テスト単語３");
+		keyword3.setStartPage(30);
+		list.add(keyword3);
+		when(keywordMapper.selectList(1)).thenReturn(list);
 		
-		// 検証
-		assertThat(actual.size()).isEqualTo(3);
-		assertThat(actual.get(0).getWord()).isEqualTo("テスト単語1-1");
-		assertThat(actual.get(0).getStartPage()).isEqualTo(1);
-		assertThat(actual.get(1).getWord()).isEqualTo("テスト単語1-2");
-		assertThat(actual.get(1).getStartPage()).isEqualTo(10);
-		assertThat(actual.get(2).getWord()).isEqualTo("□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■□□□□□□□□□■");
-		assertThat(actual.get(2).getStartPage()).isEqualTo(999);
+		// テスト対象メソッドの戻り値を検証
+		List<Keyword> result = service.getList(1);
+		assertThat(result).isEqualTo(list);
+		
+		// リポジトリ層のメソッドの呼び出しを検証する
+		verify(keywordMapper, times(1)).selectList(1);
 	}
 	
-	// 指定した雑誌が存在しない場合
 	@Test
-	@Sql("/repository/keyword-1.sql")
-	public void getListFailedTest() {
+	public void 複数レコード取得_雑誌が存在しない() {
 		
-		// テスト対象メソッドの実行
-		List<Keyword> actual = service.getList(2);
+		// リポジトリ層のモックを作成する
+		List<Keyword> list = new ArrayList<>();
+		when(keywordMapper.selectList(0)).thenReturn(list);
 		
-		assertThat(actual.size()).isEqualTo(0);
+		// テスト対象メソッドの戻り値を検証
+		List<Keyword> result = service.getList(0);
+		assertThat(result).isEqualTo(list);
+		
+		// リポジトリ層のメソッドの呼び出しを検証する
+		verify(keywordMapper, times(1)).selectList(0);
 	}
 	
-	// 更新メソッド
-	// 指定した雑誌が存在する場合
 	@Test
-	@Sql("/service/keyword-2.sql")
-	public void updateTest() {
+	public void 更新_雑誌が存在する() {
 		
-		// 更新前の対象レコード数取得
-		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
-		assertThat(before).isEqualTo(2);
-		
-		// 登録対象
-		List<Keyword> list = new ArrayList<Keyword>();
+		// リポジトリ層のモックを作成する
 		Keyword keyword1 = new Keyword();
 		keyword1.setMagazineId(1);
-		keyword1.setWord("テスト単語2-1-update");
+		keyword1.setWord("テスト単語１");
 		keyword1.setStartPage(10);
-		list.add(keyword1);
 		Keyword keyword2 = new Keyword();
 		keyword2.setMagazineId(1);
-		keyword2.setWord("テスト単語2-2-update");
+		keyword2.setWord("テスト単語２");
 		keyword2.setStartPage(20);
-		list.add(keyword2);
 		Keyword keyword3 = new Keyword();
 		keyword3.setMagazineId(1);
-		keyword3.setWord("テスト単語2-3-update");
+		keyword3.setWord("テスト単語３");
 		keyword3.setStartPage(30);
+		when(keywordMapper.delete(1)).thenReturn(2);
+		when(keywordMapper.insert(keyword1)).thenReturn(1);
+		when(keywordMapper.insert(keyword2)).thenReturn(1);
+		when(keywordMapper.insert(keyword3)).thenReturn(1);
+		
+		// テスト対象メソッドの戻り値を検証
+		List<Keyword> list = new ArrayList<>();
+		list.add(keyword1);
+		list.add(keyword2);
 		list.add(keyword3);
-		
-		// テスト対象メソッドの実行
 		boolean result = service.update(1, list);
-		
-		// メソッドの戻り値を検証
 		assertThat(result).isTrue();
 		
-		// 更新後の対象レコード数取得
-		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
-		assertThat(after).isEqualTo(3);
-		
-		// 検証
-		List<Map<String, Object>> actual = jdbcTemplate.queryForList("SELECT magazine_id, word, start_page FROM keyword WHERE magazine_id = 1");
-		assertThat(actual.get(0).get("magazine_id")).isEqualTo(1);
-		assertThat(actual.get(0).get("word")).isEqualTo("テスト単語2-1-update");
-		assertThat(actual.get(0).get("start_page")).isEqualTo(10);
-		assertThat(actual.get(1).get("magazine_id")).isEqualTo(1);
-		assertThat(actual.get(1).get("word")).isEqualTo("テスト単語2-2-update");
-		assertThat(actual.get(1).get("start_page")).isEqualTo(20);
-		assertThat(actual.get(2).get("magazine_id")).isEqualTo(1);
-		assertThat(actual.get(2).get("word")).isEqualTo("テスト単語2-3-update");
-		assertThat(actual.get(2).get("start_page")).isEqualTo(30);
+		// リポジトリ層のメソッドの呼び出しを検証する
+		verify(keywordMapper, times(1)).delete(1);
+		verify(keywordMapper, times(1)).insert(keyword1);
+		verify(keywordMapper, times(1)).insert(keyword2);
+		verify(keywordMapper, times(1)).insert(keyword3);
 	}
 	
-	// 指定した雑誌が存在しない場合
 	@Test
-	@Sql("/service/keyword-2.sql")
-	public void updateFailedTest() {
+	public void 更新_雑誌が存在しない() {
 		
-		// 更新前の対象レコード数取得
-		int before = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
-		assertThat(before).isEqualTo(2);
-		
-		// 登録対象
-		List<Keyword> list = new ArrayList<Keyword>();
+		// リポジトリ層のモックを作成する
 		Keyword keyword1 = new Keyword();
-		keyword1.setMagazineId(2);
-		keyword1.setWord("テスト単語2-1-update");
+		keyword1.setMagazineId(0);
+		keyword1.setWord("テスト単語１");
 		keyword1.setStartPage(10);
-		list.add(keyword1);
 		Keyword keyword2 = new Keyword();
-		keyword2.setMagazineId(2);
-		keyword2.setWord("テスト単語2-2-update");
+		keyword2.setMagazineId(0);
+		keyword2.setWord("テスト単語２");
 		keyword2.setStartPage(20);
-		list.add(keyword2);
 		Keyword keyword3 = new Keyword();
-		keyword3.setMagazineId(2);
-		keyword3.setWord("テスト単語2-3-update");
+		keyword3.setMagazineId(0);
+		keyword3.setWord("テスト単語３");
 		keyword3.setStartPage(30);
+		when(keywordMapper.delete(0)).thenReturn(0);
+		when(keywordMapper.insert(keyword1)).thenReturn(0);
+		when(keywordMapper.insert(keyword2)).thenReturn(0);
+		when(keywordMapper.insert(keyword3)).thenReturn(0);
+		
+		// テスト対象メソッドの戻り値を検証
+		List<Keyword> list = new ArrayList<>();
+		list.add(keyword1);
+		list.add(keyword2);
 		list.add(keyword3);
-		
-		// テスト対象メソッドの実行
-		boolean result = service.update(2, list);
-		
-		// メソッドの戻り値を検証
+		boolean result = service.update(0, list);
 		assertThat(result).isFalse();
 		
-		// 更新後の対象レコード数取得
-		int after = jdbcTemplate.queryForObject("SELECT count(*) FROM keyword WHERE magazine_id = 1", Integer.class);
-		assertThat(after).isEqualTo(2);
+		// リポジトリ層のメソッドの呼び出しを検証する
+		verify(keywordMapper, times(1)).delete(0);
+		verify(keywordMapper, times(1)).insert(keyword1);
+		verify(keywordMapper, times(1)).insert(keyword2);
+		verify(keywordMapper, times(1)).insert(keyword3);
 	}
 }
