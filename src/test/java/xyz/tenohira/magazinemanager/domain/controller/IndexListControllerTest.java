@@ -3,7 +3,6 @@ package xyz.tenohira.magazinemanager.domain.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,7 +29,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import xyz.tenohira.magazinemanager.domain.model.Article;
 import xyz.tenohira.magazinemanager.domain.model.Keyword;
 import xyz.tenohira.magazinemanager.domain.service.KeywordService;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;

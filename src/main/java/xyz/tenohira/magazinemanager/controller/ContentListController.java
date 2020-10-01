@@ -1,7 +1,6 @@
 package xyz.tenohira.magazinemanager.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import xyz.tenohira.magazinemanager.domain.model.Article;
 import xyz.tenohira.magazinemanager.domain.form.ContentForm;
+import xyz.tenohira.magazinemanager.domain.model.Article;
 import xyz.tenohira.magazinemanager.domain.service.ArticleService;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;
 import xyz.tenohira.magazinemanager.exception.MagazineNotExistException;

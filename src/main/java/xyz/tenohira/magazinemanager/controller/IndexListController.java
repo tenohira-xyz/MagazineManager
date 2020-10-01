@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import xyz.tenohira.magazinemanager.domain.form.IndexForm;
-import xyz.tenohira.magazinemanager.domain.model.Article;
 import xyz.tenohira.magazinemanager.domain.model.Keyword;
 import xyz.tenohira.magazinemanager.domain.service.KeywordService;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;

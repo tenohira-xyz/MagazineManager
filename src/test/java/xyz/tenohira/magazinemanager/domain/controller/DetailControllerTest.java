@@ -3,7 +3,6 @@ package xyz.tenohira.magazinemanager.domain.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,9 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
-import java.net.URI;
-import java.sql.Date;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +29,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import xyz.tenohira.magazinemanager.domain.model.Magazine;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;
 import xyz.tenohira.magazinemanager.exception.MagazineNotExistException;
-import xyz.tenohira.magazinemanager.exception.MagazineRegisteredException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
