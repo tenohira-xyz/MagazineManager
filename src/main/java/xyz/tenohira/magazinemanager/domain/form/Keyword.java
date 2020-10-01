@@ -21,5 +21,5 @@ public class Keyword {
 	@NotNull
 	@Min(0)
 	@Max(999)
-	private int startPage;
+	private Integer startPage;
 }
