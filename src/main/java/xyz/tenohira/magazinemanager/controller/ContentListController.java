@@ -95,8 +95,8 @@ public class ContentListController {
 	}
 	
 	@PostMapping(value = "/contents/{id}/edit", params = "add")
-	public String addListItem(@ModelAttribute @Validated ContentForm form,
-			Model model) throws Exception {
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public String addListItem(@ModelAttribute ContentForm form, Model model) {
 		
 		// リストに行を追加
 		form.addList();
@@ -105,9 +105,10 @@ public class ContentListController {
 	}
 	
 	@PostMapping(value = "/contents/{id}/edit", params = "remove")
-	public String removeListItem(@ModelAttribute @Validated ContentForm form,
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public String removeListItem(@ModelAttribute ContentForm form,
 			Model model,
-			HttpServletRequest request) throws Exception {
+			HttpServletRequest request) {
 		
 		// 指定した行をリストから削除
 		int index = Integer.valueOf(request.getParameter("remove"));
