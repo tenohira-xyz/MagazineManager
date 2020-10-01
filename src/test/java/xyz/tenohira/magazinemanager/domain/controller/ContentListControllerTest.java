@@ -166,7 +166,7 @@ class ContentListControllerTest {
 	@WithAnonymousUser
 	public void 非ログイン状態で登録() throws Exception {
 		
-		mockMvc.perform(post("/contents/{1/update"))
+		mockMvc.perform(post("/contents/1/update"))
 			.andExpect(status().isForbidden());	// アクセス可否を検証
 	}
 	
