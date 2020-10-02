@@ -70,4 +70,4 @@
 - [サービスクラスの定義](doc/service.md)
 - [テスト項目](doc/test-item.md)
 - [テストデータ](doc/test-sql.md)
-- [結合テスト](doc/test-item.md)
+- [結合テスト](doc/link-test.md)
