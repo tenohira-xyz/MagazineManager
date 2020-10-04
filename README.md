@@ -71,3 +71,5 @@
 - [テスト項目](doc/test-item.md)
 - [テストデータ](doc/test-sql.md)
 - [結合テスト](doc/link-test.md)
+    - [テスト結果](doc/lt-result.md)
+
