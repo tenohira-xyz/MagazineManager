@@ -1,4 +1,4 @@
-package xyz.tenohira.magazinemanager.domain.controller;
+package xyz.tenohira.magazinemanager.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -29,13 +29,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import xyz.tenohira.magazinemanager.MagazineManagerApplication;
 import xyz.tenohira.magazinemanager.domain.model.Keyword;
 import xyz.tenohira.magazinemanager.domain.service.KeywordService;
 import xyz.tenohira.magazinemanager.domain.service.MagazineService;
 import xyz.tenohira.magazinemanager.exception.MagazineNotExistException;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = MagazineManagerApplication.class)
 @AutoConfigureMockMvc
 class IndexListControllerTest {
 

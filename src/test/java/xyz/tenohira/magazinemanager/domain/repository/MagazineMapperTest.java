@@ -16,10 +16,11 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import xyz.tenohira.magazinemanager.MagazineManagerApplication;
 import xyz.tenohira.magazinemanager.domain.model.Magazine;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = MagazineManagerApplication.class)
 @Transactional
 class MagazineMapperTest {
 

@@ -1,4 +1,4 @@
-package xyz.tenohira.magazinemanager.domain.controller;
+package xyz.tenohira.magazinemanager.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,8 +16,10 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import xyz.tenohira.magazinemanager.MagazineManagerApplication;
+
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = MagazineManagerApplication.class)
 @AutoConfigureMockMvc
 class LoginControllerTest {
 
