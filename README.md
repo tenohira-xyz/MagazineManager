@@ -10,6 +10,7 @@
 ```
 java -jar -Dspring.profiles.active=release MagazineManager-0.1.0-SNAPSHOT.jar
 ```
+ブラウザで `http://localhost:8080/`にアクセスする。  
 
 終了するにはコマンドライン上で`Ctrl + C`を入力する。  
 
@@ -22,7 +23,9 @@ java -jar -Dspring.profiles.active=release MagazineManager-0.1.0-SNAPSHOT.jar
 今後ユーザ管理画面を追加してパスワード変更等に対応予定。  
 
 ## 設計書等
-設計時のメモ一覧。  
+開発用のドキュメントはこちら。  
+[Document](https://tenohira-xyz.github.io/MagazineManager-docs/#/)  
+
 後でWiki等に移動する。  
 
 - [メモ](doc/note.md)
